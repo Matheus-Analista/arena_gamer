@@ -6,6 +6,10 @@
 
         const CLIENT_WHATSAPP_NUMBER = '5562999462437';
 
+        // Habilita os estilos de scroll-reveal somente quando JS está ativo
+        // (se o JS falhar, o conteúdo permanece totalmente visível).
+        document.documentElement.classList.add('js');
+
         // ==========================================================================
         // SHADER GRADIENT WAVES (3D RAYMARCHED PLASMA OCEAN WAVES)
         // ==========================================================================
@@ -624,6 +628,82 @@
             }
         }
 
+        // ==========================================================================
+        // SCROLL REVEAL - ITENS APARECEM UM A UM AO DESCER (INTERSECTION OBSERVER)
+        // ==========================================================================
+        function initScrollReveal() {
+            const items = document.querySelectorAll('.reveal-item');
+            if (!items.length) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const groups = new Map();
+            items.forEach(el => {
+                const parent = el.parentElement;
+                if (!groups.has(parent)) groups.set(parent, []);
+                groups.get(parent).push(el);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+
+                    const group = groups.get(entry.target.parentElement) || [entry.target];
+                    if (group.length > 1 && group._revealed) return;
+
+                    group.forEach((item, i) => {
+                        item.style.setProperty('--reveal-delay', `${i * 130}ms`);
+                        requestAnimationFrame(() => item.classList.add('is-visible'));
+                    });
+
+                    group.forEach(it => observer.unobserve(it));
+                    if (group.length > 1) group._revealed = true;
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+            items.forEach(el => observer.observe(el));
+        }
+
+        // ==========================================================================
+        // POPUP CTA - APARECE APÓS 7,5 SEGUNDOS
+        // ==========================================================================
+        function initCtaPopup() {
+            const popup = document.getElementById('cta-popup');
+            const closeBtn = document.getElementById('popup-close');
+            if (!popup) return;
+
+            // Mostra apenas uma vez por sessão de navegação.
+            if (sessionStorage.getItem('ag_cta_popup_closed')) return;
+
+            let timer = null;
+
+            function open() {
+                popup.classList.add('open');
+                popup.setAttribute('aria-hidden', 'false');
+                if (closeBtn) closeBtn.focus();
+            }
+
+            function close() {
+                clearTimeout(timer);
+                popup.classList.remove('open');
+                popup.setAttribute('aria-hidden', 'true');
+                sessionStorage.setItem('ag_cta_popup_closed', '1');
+            }
+
+            timer = setTimeout(open, 7500);
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', close);
+            }
+
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) close();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && popup.classList.contains('open')) close();
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // INICIALIZAR SHADER GRADIENT WAVES 3D AO FUNDO
             initGradientWavesBackground();
@@ -633,6 +713,12 @@
 
             // INICIALIZAR GOOEY NAV
             new GooeyNavAnimation();
+
+            // INICIALIZAR SCROLL REVEAL (ITENS APARECEM AO DESCER)
+            initScrollReveal();
+
+            // INICIALIZAR POPUP CTA (7,5s)
+            initCtaPopup();
 
             const mobileToggle = document.getElementById('mobile-toggle');
             const mobileDrawer = document.getElementById('mobile-drawer');
