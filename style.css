@@ -8,6 +8,7 @@
 
 :root {
     --bg-black: #0B0B0D;
+    --bg-black-alt: #121216;
     --surface-graphite: #1C1C1F;
     --surface-graphite-hover: #26262B;
     --border-color: rgba(255, 255, 255, 0.08);
@@ -296,6 +297,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10.5rem 0 5rem;
     position: relative;
     overflow: hidden;
+    background-color: var(--bg-black);
 }
 
 .hero-grid {
@@ -459,7 +461,8 @@ h1, h2, h3, h4, h5, h6 {
 /* 2. SEÇÃO O PROBLEMA */
 .problem-section {
     padding: 5rem 0;
-    background: linear-gradient(180deg, rgba(11, 11, 13, 0.4) 0%, rgba(28, 28, 31, 0.3) 100%);
+    background-color: var(--bg-black-alt);
+    position: relative;
 }
 
 .problem-grid {
@@ -472,10 +475,11 @@ h1, h2, h3, h4, h5, h6 {
 .problem-card {
     background: rgba(28, 28, 31, 0.85);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 77, 77, 0.15);
+    border: 1px solid rgba(255, 77, 77, 0.3);
     border-radius: var(--radius-md);
     padding: 2.25rem;
     position: relative;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .problem-card h3 {
@@ -488,13 +492,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .solution-card {
-    background: rgba(28, 28, 31, 0.85);
+    background: rgba(28, 28, 31, 0.9);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(47, 111, 255, 0.3);
+    border: 1px solid rgba(47, 111, 255, 0.4);
     border-radius: var(--radius-md);
     padding: 2.25rem;
     position: relative;
-    box-shadow: 0 10px 30px rgba(47, 111, 255, 0.08);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 24px rgba(47, 111, 255, 0.1);
 }
 
 .solution-card h3 {
@@ -549,6 +553,7 @@ h1, h2, h3, h4, h5, h6 {
 .builder-section {
     padding: 6rem 0;
     position: relative;
+    background-color: var(--bg-black);
 }
 
 .builder-container {
@@ -717,6 +722,14 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
+.services-section {
+    background-color: var(--bg-black-alt);
+}
+
+.process-section {
+    background-color: var(--bg-black-alt);
+}
+
 .services-grid, .process-grid {
     position: relative;
 }
@@ -724,15 +737,16 @@ h1, h2, h3, h4, h5, h6 {
 .magic-bento-card {
     position: relative;
     overflow: hidden;
-    background: rgba(28, 28, 31, 0.85);
+    background: rgba(28, 28, 31, 0.9);
     backdrop-filter: blur(12px);
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
     padding: 2rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     transform-style: preserve-3d;
     will-change: transform;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .magic-bento-card::before {
@@ -875,7 +889,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 5. SEÇÃO PROVA SOCIAL */
 .proof-section {
     padding: 6rem 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(28, 28, 31, 0.4) 100%);
+    background-color: var(--bg-black);
 }
 
 .gallery-grid {
@@ -930,7 +944,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 7. SEÇÃO FAQ */
 .faq-section {
     padding: 6rem 0;
-    background: rgba(28, 28, 31, 0.2);
+    background-color: var(--bg-black);
 }
 
 .faq-accordion {
@@ -997,6 +1011,8 @@ h1, h2, h3, h4, h5, h6 {
 /* 8. CTA FINAL */
 .cta-final {
     padding: 6rem 0;
+    background-color: var(--bg-black-alt);
+    position: relative;
 }
 
 .cta-box {
@@ -1021,6 +1037,22 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-muted);
     max-width: 580px;
     margin: 0 auto 2.25rem;
+}
+
+/* LINHA DIVISÓRIA DE JORNADA — marca transição entre seções-chave */
+.problem-section::before,
+.services-section::before,
+.cta-final::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(47, 111, 255, 0.5) 50%, transparent);
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* 9. RODAPÉ */
