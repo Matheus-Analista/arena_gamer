@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background Container -->
+  <rect width="512" height="512" rx="120" fill="#0B0B0D"/>
+  <rect width="504" height="504" x="4" y="4" rx="116" fill="none" stroke="#2F6FFF" stroke-width="8" stroke-opacity="0.5"/>
+  
+  <!-- Geometric AG Symbol -->
+  <path d="M256 70 L436 410 L76 410 Z" fill="none" stroke="#2F6FFF" stroke-width="36" stroke-linejoin="round"/>
+  <path d="M256 150 L370 370 L142 370 Z" fill="#2F6FFF"/>
+  <path d="M256 220 L315 340 L197 340 Z" fill="#0B0B0D"/>
+</svg>
